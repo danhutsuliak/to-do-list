@@ -1,0 +1,55 @@
+body {
+  background-color: #1d1d1d;
+  margin: 0 12%;
+  color: whitesmoke;
+}
+
+h1 {
+  text-align: center;
+}
+
+.item-container {
+  /* border: 2px solid rgb(59, 173, 168); */
+  font-size: 22px;
+  background-color: rgb(46, 46, 46);
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.item {
+  margin: 20px 0;
+}
+
+.item input {
+  margin-right: 8px;
+}
+
+.item button {
+  /* display: block; */
+  right: 14.2%;
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: rgb(202, 58, 58);
+}
+
+.button-container button {
+  color: whitesmoke;
+  padding: 10px 15%;
+  background-color: rgb(46, 46, 46);
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.checked {
+  text-decoration: line-through;
+}
