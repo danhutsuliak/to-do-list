@@ -1,9 +1,8 @@
 const itemContainer = document.querySelector('.item-container');
-let items = [];
 const addBtn = document.querySelector('#add-item');
 
 const addNewTask = (task) => {
-  itemContainer.insertAdjacentHTML('beforeend', `<div class="item" id=${localStorage.length - 1}><input type="checkbox" /><button>X</button></div>`);
+  itemContainer.insertAdjacentHTML('beforeend', `<div class="item"><input type="checkbox" /><button>X</button></div>`);
   itemContainer.lastChild.insertAdjacentText('beforeend', task);
 
   // check listener
@@ -14,29 +13,41 @@ const addNewTask = (task) => {
   // delete listener
   itemContainer.lastChild.childNodes[1].addEventListener('click', (event) => {
     itemContainer.removeChild(event.target.parentNode);
-    localStorage.removeItem(event.target.parentNode.id);
+    for (const key in localStorage) {
+      if (event.target.parentNode.innerText == `X${localStorage[key]}`)
+        localStorage.removeItem(key);
+    }
+    console.log(event.target.parentNode);
     if (!localStorage.length) {
-      itemContainer.insertAdjacentHTML('afterbegin', '<p>Your To Do List is empty. Make a task by cliking the button below!</p>')
+      itemContainer.insertAdjacentHTML('afterbegin', '<p>Your To Do List is empty.<br><br>Make a task by cliking the button below!</p>')
     }
   })
 }
 
 if (localStorage.length) {
-  for (let i = 0; i < localStorage.length; i++) {
-    addNewTask(localStorage.getItem(i));
+  for (const key in localStorage) {
+    if (typeof localStorage[key] == 'string')
+      addNewTask(localStorage[key]);
   }
 } else {
-  itemContainer.insertAdjacentHTML('afterbegin', '<p>Make your first To Do!</p>')
+  itemContainer.insertAdjacentHTML('afterbegin', '<p>Your To Do List is empty.<br><br>Add a task by clicking the button below!</p>')
 }
-
 addBtn.addEventListener('click', () => {
   const task = prompt('New Task');
   if (!localStorage.length) {
     itemContainer.firstChild.remove();
   }
 
-  localStorage.setItem(localStorage.length, task);
+  for (let i = 0; i <= localStorage.length; i++) {
+    if (!localStorage[i]) {
+      localStorage.setItem(i, task);
+      break;
+    } else {
+      localStorage.setItem(localStorage.length, task);
+      break
+    }
+  }
+
   console.log(localStorage);
   addNewTask(task);
 })
-
